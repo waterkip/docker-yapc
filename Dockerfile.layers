@@ -1,0 +1,5 @@
+FROM perl:latest
+COPY cpanfile .
+RUN cpanm --installdeps .
+COPY . .
+RUN cpanm .
