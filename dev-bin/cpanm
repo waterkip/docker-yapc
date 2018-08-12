@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+cpanm $@
+RV=$?
+if [ $RV -ne 0 ];
+then
+    cat $HOME/.cpanm/work/*/build.log
+fi
+
+exit $RV
+
+# vim: filetype=sh
