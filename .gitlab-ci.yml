@@ -23,6 +23,16 @@ build:
     - docker build --cache-from $CONTAINER_IMAGE:latest --cache-from $CONTAINER_IMAGE:$CI_BUILD_REF_NAME --tag $CONTAINER_IMAGE:$CI_BUILD_REF_NAME .
     - docker push $CONTAINER_IMAGE:$CI_BUILD_REF_NAME
 
+build-layer:
+  stage: build
+  except:
+    - master
+  script:
+    - docker pull $CONTAINER_IMAGE:$CI_BUILD_REF_NAME-layer || true
+    - docker pull $CONTAINER_IMAGE:latest-layer || true
+    - docker build --cache-from $CONTAINER_IMAGE:latest-layer --cache-from $CONTAINER_IMAGE:$CI_BUILD_REF_NAME-layer --tag $CONTAINER_IMAGE:$CI_BUILD_REF_NAME -f Dockerfile.layers .
+    - docker push $CONTAINER_IMAGE:$CI_BUILD_REF_NAME
+
 build-latest:
   stage: build
   only:
@@ -31,3 +41,12 @@ build-latest:
     - docker pull $CONTAINER_IMAGE:latest || true
     - docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:latest .
     - docker push $CONTAINER_IMAGE:latest
+
+build-latest-layer:
+  stage: build
+  only:
+    - master
+  script:
+    - docker pull $CONTAINER_IMAGE:latest-layer || true
+    - docker build --cache-from $CONTAINER_IMAGE:latest-layer -f Dockerfile.layers --tag $CONTAINER_IMAGE:latest-layer .
+    - docker push $CONTAINER_IMAGE:latest-layer
