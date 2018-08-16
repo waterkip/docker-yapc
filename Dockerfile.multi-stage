@@ -1,0 +1,16 @@
+FROM perl:latest as build-deps
+COPY cpanfile .
+RUN cpanm --test-only --installdeps . \
+    && cpanm -n --installdeps .
+
+FROM perl:latest as test
+COPY --from=build-deps /usr/local/ /usr/local
+COPY --from=build-deps /root/.cpanm /root/.cpanm
+COPY . .
+RUN prove -l
+
+
+FROM perl:slim as runtime
+COPY --from=build-deps /usr/local/ /usr/local
+COPY . .
+RUN cpanm -n .
