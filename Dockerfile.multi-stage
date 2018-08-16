@@ -3,12 +3,10 @@ COPY cpanfile .
 RUN cpanm --test-only --installdeps . \
     && cpanm -n --installdeps .
 
-FROM perl:latest as test
+FROM perl:slim as test
 COPY --from=build-deps /usr/local/ /usr/local
-COPY --from=build-deps /root/.cpanm /root/.cpanm
 COPY . .
 RUN prove -l
-
 
 FROM perl:slim as runtime
 COPY --from=build-deps /usr/local/ /usr/local
