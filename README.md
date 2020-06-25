@@ -6,6 +6,6 @@ developers](https://youtu.be/h_1Vy60ha7U).
 You can clone this repository via either gitlab or github:
 
 ```
-git clone https://github.com/waterkip/docker-yapc
-git clone https://gitlab.com/waterkip/docker-yapc
+git clone https://github.com/waterkip/docker-yapc.git
+git clone https://gitlab.com/waterkip/docker-yapc.git
 ```
