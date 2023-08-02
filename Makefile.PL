@@ -6,13 +6,13 @@ use 5.008;
 use ExtUtils::MakeMaker;
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "Docker initial commit",
+  "ABSTRACT" => "Docker package needs a propper abstract",
   "AUTHOR" => "Wesley Schwengle <waterkip\@cpan.org>",
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0
   },
   "DISTNAME" => "Docker",
-  "LICENSE" => "bsd",
+  "LICENSE" => "unrestricted",
   "MIN_PERL_VERSION" => "5.008",
   "NAME" => "Docker",
   "PREREQ_PM" => {
@@ -20,6 +20,9 @@ my %WriteMakefileArgs = (
     "namespace::autoclean" => 0
   },
   "TEST_REQUIRES" => {
+    "File::Spec" => 0,
+    "IO::Handle" => 0,
+    "IPC::Open3" => 0,
     "Test::More" => "0.96"
   },
   "VERSION" => "0.001",
@@ -30,6 +33,9 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "File::Spec" => 0,
+  "IO::Handle" => 0,
+  "IPC::Open3" => 0,
   "Moose" => 0,
   "Test::More" => "0.96",
   "namespace::autoclean" => 0
